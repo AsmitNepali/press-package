@@ -24,6 +24,12 @@
     "require": {
         "erusev/parsedown": "^1.7",
         "laravel/legacy-factories": "^1.4"
+    },
+    "extra": {
+        "laravel" : {
+            "dont-descover": [
+                "Vicgonvt\\Press\\PressBaseServiceProvider\\"
+            ]
+        }
     }
-
 }
