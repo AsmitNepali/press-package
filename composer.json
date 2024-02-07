@@ -1,0 +1,28 @@
+{
+    "name": "vicgonvt/press",
+    "description": "An elegant markdown-powered blog for the laravel framework.",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vicgonvt\\Press\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vicgonvt\\Press\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AsmitNepali",
+            "email": "mail2asmitnepali@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^8.21"
+    },
+    "require": {
+        "erusev/parsedown": "^1.7"
+    }
+
+}
