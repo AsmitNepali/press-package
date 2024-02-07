@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Vicgonvt\Press\Post;
+use Vicgonvt\Press\Press;
 use Vicgonvt\Press\PressFileParser;
 
 class ProcessCommand extends Command
@@ -16,7 +17,10 @@ class ProcessCommand extends Command
     public function handle()
     {
         // Fetch all posts
-        $files = File::files('blogs');
+        if(Press::configNotPublished()) {
+            return $this->warn('Please publish the config file by running \'php artisan vendor:publish --tag=press-config\'');
+        }
+        $files = File::files(config('press.path'));
 
         // Process each file
         foreach($files as $file) {
