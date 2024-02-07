@@ -4,7 +4,7 @@ namespace Vicgonvt\Press\Tests\Feature;
 
 
 use Carbon\Carbon;
-use Orchestra\Testbench\TestCase;
+use Vicgonvt\Press\Tests\TestCase;
 use Vicgonvt\Press\PressFileParser;
 
 class PressFileParserTest extends TestCase
@@ -57,7 +57,15 @@ class PressFileParserTest extends TestCase
     {
         $pressFileParser = (new PressFileParser("---\nauthor: John Doe\n---\n"));
         $data = $pressFileParser->getData();
-        $this->assertEquals(json_encode(['extra' => ['author' => 'John Doe']]), $data['extra']);
+        $this->assertEquals(json_encode(['author' => 'John Doe']), $data['extra']);
+
+    }
+
+    public function test_two_additional_fields_are_put_into_extra()
+    {
+        $pressFileParser = (new PressFileParser("---\nauthor: John Doe\nimage: some/image.jpg\n---\n"));
+        $data = $pressFileParser->getData();
+        $this->assertEquals(json_encode(['author' => 'John Doe', 'image' => 'some/image.jpg']), $data['extra']);
 
     }
 }

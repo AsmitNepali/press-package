@@ -47,11 +47,12 @@ class PressFileParser
         foreach ($this->data as $field => $value) {
             $class = 'Vicgonvt\\Press\\Fields\\' . ucfirst($field);
 
-            if(class_exists($class) && method_exists($class, 'process')) {
-                $this->data = array_merge(
-                    $this->data, $class::process($field, $value)
-                );
+            if(!class_exists($class) && !method_exists($class, 'process')) {
+               $class = 'Vicgonvt\\Press\\Fields\\Extra';
             }
+            $this->data = array_merge(
+                $this->data, $class::process($field, $value, $this->data)
+            );
         }
     }
 }

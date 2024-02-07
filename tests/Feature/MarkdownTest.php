@@ -2,7 +2,7 @@
 
 namespace Vicgonvt\Press\Tests\Feature;
 
-use Orchestra\Testbench\TestCase;
+use Vicgonvt\Press\Tests\TestCase;
 use Vicgonvt\Press\MarkdownParser;
 
 class MarkdownTest extends TestCase
