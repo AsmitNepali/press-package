@@ -22,7 +22,8 @@
         "orchestra/testbench": "^8.21"
     },
     "require": {
-        "erusev/parsedown": "^1.7"
+        "erusev/parsedown": "^1.7",
+        "laravel/legacy-factories": "^1.4"
     }
 
 }
