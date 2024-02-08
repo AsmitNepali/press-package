@@ -5,6 +5,7 @@ namespace Vicgonvt\Press;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Vicgonvt\Press\Console\ProcessCommand;
+use Vicgonvt\Press\Facades\Press;
 
 class PressBaseServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,7 @@ class PressBaseServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'press');
+        $this->registerFacades();
         $this->registerRoute();
     }
 
@@ -50,5 +52,12 @@ class PressBaseServiceProvider extends ServiceProvider
             'prefix' => Press::path(),
             'namespace' => 'Vicgonvt\Press\Http\Controllers'
         ];
+    }
+
+    protected function registerFacades()
+    {
+        $this->app->singleton('Press', function($app) {
+            return new \Vicgonvt\Press\Press();
+        });
     }
 }

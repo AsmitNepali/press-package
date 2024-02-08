@@ -3,11 +3,9 @@
 namespace Vicgonvt\Press\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Vicgonvt\Press\Post;
-use Vicgonvt\Press\Press;
-use Vicgonvt\Press\PressFileParser;
+use Vicgonvt\Press\Facades\Press;
 
 class ProcessCommand extends Command
 {
