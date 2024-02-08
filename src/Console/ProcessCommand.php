@@ -17,23 +17,25 @@ class ProcessCommand extends Command
     public function handle()
     {
         // Fetch all posts
-        if(Press::configNotPublished()) {
+        if (Press::configNotPublished()) {
             return $this->warn('Please publish the config file by running \'php artisan vendor:publish --tag=press-config\'');
         }
-        $files = File::files(config('press.path'));
 
-        // Process each file
-        foreach($files as $file) {
-            $post = (new PressFileParser($file->getPathname()))->getData();
+        try {
+            $posts = Press::driver()->fetchPosts();
+
+            foreach ($posts as $post) {
+                // Persist to the DB
+                Post::create([
+                    'identifier' => $post['identifier'],
+                    'slug' => Str::slug($post['title']),
+                    'title' => $post['title'],
+                    'body' => $post['body'],
+                    'extra' => $post['extra'] ?? []
+                ]);
+            }
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
         }
-
-        // Persist to the DB
-        Post::create([
-            'identifier' => Str::random(),
-            'slug' => Str::slug($post['title']),
-            'title' => $post['title'],
-            'body' => $post['body'],
-            'extra' => $post['extra'] ?? []
-        ]);
     }
 }
